@@ -149,8 +149,9 @@ def knn(k, X, y, audio_feats):
 
 
 #--------- Streamlit  ---------
-playlist_df = retrieve_spotify_data(playlist_arr)
-playlist_df.to_csv('data/music_data.csv', index=False)
+
+st.title("Spotify Playlist Recommender")
+#playlist_df.to_csv('data/music_data.csv', index=False)
 #st.dataframe(playlist_df)
 
 #playlist_df = pd.read_csv('data/music_data.csv')
