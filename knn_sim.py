@@ -174,22 +174,22 @@ st.plotly_chart(fig)
 
 # audio_feats = get_audio_features('Dynamite', 'BTS')
 
-def get_audio_features(song_name, artist):
-    query = f"track:{song_name} artist:{artist}"
-    results = sp.search(q=query, type='track', limit=1)
+# def get_audio_features(song_name, artist):
+#     query = f"track:{song_name} artist:{artist}"
+#     results = sp.search(q=query, type='track', limit=1)
 
-    if len(results['tracks']['items']) > 0:
-        track_id = results['tracks']['items'][0]['id']
-        track_features = sp.audio_features([track_id])
+#     if len(results['tracks']['items']) > 0:
+#         track_id = results['tracks']['items'][0]['id']
+#         track_features = sp.audio_features([track_id])
         
-        if len(track_features) > 0:
-            track_info = sp.track(track_id)
-            popularity = track_info['popularity']
+#         if len(track_features) > 0:
+#             track_info = sp.track(track_id)
+#             popularity = track_info['popularity']
             
-            numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
-            numerical_features['popularity'] = popularity
-            return numerical_features
-    return None
+#             numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
+#             numerical_features['popularity'] = popularity
+#             return numerical_features
+#     return None
 
 # # Create a Streamlit app
 # st.title('Audio Features Lookup')
@@ -209,6 +209,23 @@ def get_audio_features(song_name, artist):
 #         st.table(audio_table)
 #     else:
 #         st.write('No audio features found for the given song and artist.')
+
+def get_audio_features(song_name, artist):
+    query = f"track:{song_name} artist:{artist}"
+    results = sp.search(q=query, type='track', limit=1)
+
+    if len(results['tracks']['items']) > 0:
+        track_id = results['tracks']['items'][0]['id']
+        track_features = sp.audio_features([track_id])
+        
+        if len(track_features) > 0:
+            track_info = sp.track(track_id)
+            popularity = track_info['popularity']
+            
+            numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
+            numerical_features['popularity'] = popularity
+            return numerical_features
+    return None
 
 # Create a Streamlit app
 st.title('Audio Features Lookup')
