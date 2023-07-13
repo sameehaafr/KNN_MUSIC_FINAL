@@ -17,6 +17,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 warnings.filterwarnings("ignore")
 
 #--------- Constants  ---------
+st.title("Spotify Playlist Recommender")
 
 CLIENT_ID = "3e28cbdec0e841c08ec2d6b9b949cef1"
 CLIENT_SECRET = "857ea858725348e09cbeb6f1470bcbac"
@@ -81,23 +82,6 @@ def X_y_split(playlist_df):
 
 X, y = X_y_split(playlist_df)
 
-# def silhouette_graph(X):
-#     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
-#     silhouette_avg = []
-#     for num_clusters in range_n_clusters:
-#         kmeans = KMeans(n_clusters=num_clusters)
-#         kmeans.fit(X)
-#         cluster_labels = kmeans.labels_
-    
-#         silhouette_avg.append(silhouette_score(X, cluster_labels))
-
-#     fig = plt.plot(range_n_clusters, silhouette_avg, 'bx-')
-#     plt.xlabel('Values of K')
-#     plt.ylabel('Silhouette score')
-#     plt.title('Silhouette analysis For Optimal k')
-#     return st.pyplot(fig)
-
-# silhouette_graph(X)
 def silhouette_graph(X):
     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
     silhouette_avg = []
@@ -137,7 +121,18 @@ def kmeans(X):
 
 playlist_df = kmeans(X)
 
-def tsne_graph(X):
+# def tsne_graph(X):
+#     tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
+#     genre_embedding = tsne_pipeline.fit_transform(X)
+#     projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
+#     projection['genres'] = playlist_df['genres']
+#     projection['cluster'] = playlist_df['cluster']
+
+#     fig = px.scatter(
+#         projection, x='x', y='y', color='cluster', hover_data=['x', 'y', 'genres'])
+#     return st.pyplot(fig)
+
+def tsne_graph(X, playlist_df):
     tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
     genre_embedding = tsne_pipeline.fit_transform(X)
     projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
@@ -146,7 +141,19 @@ def tsne_graph(X):
 
     fig = px.scatter(
         projection, x='x', y='y', color='cluster', hover_data=['x', 'y', 'genres'])
-    return st.pyplot(fig)
+    return fig
+
+# Assuming you have the data 'X' and 'playlist_df' available
+
+# Create a Streamlit app
+st.title('t-SNE Visualization')
+st.write('This app performs t-SNE dimensionality reduction and visualizes the data.')
+
+# Generate the t-SNE graph
+fig = tsne_graph(X, playlist_df)
+
+# Display the plot using Streamlit
+st.plotly_chart(fig)
 
 def get_audio_features(song_name, artist):
     query = f"track:{song_name} artist:{artist}"
@@ -193,5 +200,3 @@ print(genre, track_name, artist_name)
 
 
 #--------- Streamlit  ---------
-
-st.title("Spotify Playlist Recommender")
