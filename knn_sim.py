@@ -236,10 +236,11 @@ st.write('Enter a song name and artist to get the audio features.')
 song_name = st.text_input('Song Name')
 artist = st.text_input('Artist')
 audio_feats = None
-
-if not song_name and not artist:
-    st.write('Enter a song name and artist to get the audio features.')
-elif song_name and artist:
+if not song_name:
+    song_name = 'Dynamite'
+if not artist:
+    artist = 'BTS'
+if song_name and artist:
     # Get audio features
     audio_feats = []
     audio_feats = get_audio_features(song_name, artist)
