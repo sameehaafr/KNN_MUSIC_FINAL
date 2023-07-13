@@ -233,13 +233,9 @@ st.title('Audio Features Lookup')
 st.write('Enter a song name and artist to get the audio features.')
 
 # Get user input
-song_name = st.text_input('Song Name')
-artist = st.text_input('Artist')
+song_name = st.text_input('Song Name', 'Dynamite')
+artist = st.text_input('Artist', 'BTS')
 audio_feats = None
-if not song_name:
-    st.write('Please enter a song name.')
-if not artist:
-    st.write('Please enter an artist name.')
 if song_name and artist:
     # Get audio features
     audio_feats = []
