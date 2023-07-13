@@ -236,7 +236,7 @@ try:
     # Get user input
     song_name = st.text_input('Song Name')
     artist = st.text_input('Artist')
-    audio_feats = []
+    audio_feats = None
     if song_name and artist:
         # Get audio features
         audio_feats = []
