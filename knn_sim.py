@@ -72,13 +72,14 @@ def retrieve_spotify_data(playlist_uri_array):
 
 #playlist_df = retrieve_spotify_data(playlist_arr)
 playlist_df = pd.read_csv('data/music_data.csv')
+st.dataframe(playlist_df)
 
 def X_y_split(playlist_df):
     X = playlist_df[COLS]
     y = playlist_df['genres']
     return X,y
 
-#X, y = X_y_split(playlist_df)
+X, y = X_y_split(playlist_df)
 
 def silhouette_graph(X):
     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
@@ -96,6 +97,8 @@ def silhouette_graph(X):
     plt.title('Silhouette analysis For Optimal k')
     return st.pyplot(fig)
 
+silhouette_graph(X)
+
 
 def kmeans(X):
     kmeans = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10))])
@@ -103,6 +106,8 @@ def kmeans(X):
     playlist_df['cluster'] = kmeans.predict(X)
     playlist_df['genres'] = playlist_df['genres']
     return playlist_df
+
+playlist_df = kmeans(X)
 
 def tsne_graph(X):
     tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
@@ -113,7 +118,7 @@ def tsne_graph(X):
 
     fig = px.scatter(
         projection, x='x', y='y', color='cluster', hover_data=['x', 'y', 'genres'])
-    return fig.show()
+    return st.pyplot(fig)
 
 def get_audio_features(song_name, artist):
     query = f"track:{song_name} artist:{artist}"
@@ -131,6 +136,8 @@ def get_audio_features(song_name, artist):
             numerical_features['popularity'] = popularity
             return numerical_features
     return None
+
+audio_feats = get_audio_features('Dynamite', 'BTS')
 
 def knn(k, X, y, audio_feats):
     scaler = StandardScaler()
@@ -151,6 +158,9 @@ def knn(k, X, y, audio_feats):
     print("Nearest Songs:")
     print(playlist_df['track_name'], playlist_df['artist_name'])
     return nearest_songs['genres'],  playlist_df['track_name'], playlist_df['artist_name']
+
+genre, track_name, artist_name = knn(5, X, y, audio_feats)
+print(genre, track_name, artist_name)
 
 
 
