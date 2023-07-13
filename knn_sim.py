@@ -226,7 +226,7 @@ def get_audio_features(song_name, artist):
             numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
             numerical_features['popularity'] = popularity
             return numerical_features
-    return {}
+    return None
 
 try:
   # Create a Streamlit app
