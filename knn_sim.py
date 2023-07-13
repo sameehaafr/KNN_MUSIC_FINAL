@@ -237,9 +237,9 @@ song_name = st.text_input('Song Name')
 artist = st.text_input('Artist')
 audio_feats = None
 if not song_name:
-    song_name = 'Dynamite'
+    st.write('Please enter a song name.')
 if not artist:
-    artist = 'BTS'
+    st.write('Please enter an artist name.')
 if song_name and artist:
     # Get audio features
     audio_feats = []
