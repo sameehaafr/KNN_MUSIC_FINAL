@@ -201,6 +201,7 @@ artist = st.text_input('Artist')
 
 if song_name and artist:
     # Get audio features
+    audio_feats = []
     audio_feats = get_audio_features(song_name, artist)
 
     if audio_feats:
