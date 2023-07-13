@@ -248,6 +248,37 @@ if song_name and artist:
     else:
         st.write('No audio features found for the given song and artist.')
 
+# def knn(k, X, y, audio_feats):
+#     scaler = StandardScaler()
+#     X_scaled = scaler.fit_transform(X)
+
+#     knn = KNeighborsClassifier(n_neighbors=k)
+#     knn.fit(X_scaled, y)
+
+#     num_feat = pd.DataFrame.from_dict(audio_feats, orient='index').T
+#     num_feat = num_feat[COLS]
+
+#     new_input_scaled = scaler.transform(num_feat.values.reshape(1, -1))
+
+#     distances, indices = knn.kneighbors(new_input_scaled)
+    
+#     nearest_songs = playlist_df.iloc[indices[0]]
+
+#     print("Nearest Songs:")
+#     print(playlist_df['track_name'], playlist_df['artist_name'])
+#     return nearest_songs['genres'],  playlist_df['track_name'], playlist_df['artist_name']
+
+# st.title('KNN Recommender')
+# genres, track, artist = knn(5, X, y, audio_feats)
+
+# st.write('Genres:')
+# st.write(genres)
+# st.write('Tracks:')
+# st.write(track)
+# st.write('Artists:')
+# st.write(artist)
+
+
 def knn(k, X, y, audio_feats):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
@@ -265,12 +296,14 @@ def knn(k, X, y, audio_feats):
     nearest_songs = playlist_df.iloc[indices[0]]
 
     print("Nearest Songs:")
-    print(playlist_df['track_name'], playlist_df['artist_name'])
-    return nearest_songs['genres'],  playlist_df['track_name'], playlist_df['artist_name']
+    print(nearest_songs['track_name'], nearest_songs['artist_name'])
+    
+    return nearest_songs['genres'], nearest_songs['track_name'], nearest_songs['artist_name']
 
-genre, track_name, artist_name = knn(5, X, y, audio_feats)
-print(genre, track_name, artist_name)
+st.title('KNN Recommender')
+genres, track, artist = knn(5, X, y, audio_feats)
 
-
-
+st.write('Recommendations:')
+recommendations_table = pd.DataFrame({'Genres': genres, 'Track': track, 'Artist': artist})
+st.table(recommendations_table)
 #--------- Streamlit  ---------
