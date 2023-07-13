@@ -113,24 +113,13 @@ st.pyplot(fig)
 
 
 def kmeans(X):
-    kmeans = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10))])
+    kmeans = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=5))])
     kmeans.fit(X)
     playlist_df['cluster'] = kmeans.predict(X)
     playlist_df['genres'] = playlist_df['genres']
     return playlist_df
 
 playlist_df = kmeans(X)
-
-# def tsne_graph(X):
-#     tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
-#     genre_embedding = tsne_pipeline.fit_transform(X)
-#     projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
-#     projection['genres'] = playlist_df['genres']
-#     projection['cluster'] = playlist_df['cluster']
-
-#     fig = px.scatter(
-#         projection, x='x', y='y', color='cluster', hover_data=['x', 'y', 'genres'])
-#     return st.pyplot(fig)
 
 def tsne_graph(X, playlist_df):
     tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
@@ -155,62 +144,6 @@ fig = tsne_graph(X, playlist_df)
 # Display the plot using Streamlit
 st.plotly_chart(fig)
 
-# def get_audio_features(song_name, artist):
-#     query = f"track:{song_name} artist:{artist}"
-#     results = sp.search(q=query, type='track', limit=1)
-
-#     if len(results['tracks']['items']) > 0:
-#         track_id = results['tracks']['items'][0]['id']
-#         track_features = sp.audio_features([track_id])
-        
-#         if len(track_features) > 0:
-#             track_info = sp.track(track_id)
-#             popularity = track_info['popularity']
-            
-#             numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
-#             numerical_features['popularity'] = popularity
-#             return numerical_features
-#     return None
-
-# audio_feats = get_audio_features('Dynamite', 'BTS')
-
-# def get_audio_features(song_name, artist):
-#     query = f"track:{song_name} artist:{artist}"
-#     results = sp.search(q=query, type='track', limit=1)
-
-#     if len(results['tracks']['items']) > 0:
-#         track_id = results['tracks']['items'][0]['id']
-#         track_features = sp.audio_features([track_id])
-        
-#         if len(track_features) > 0:
-#             track_info = sp.track(track_id)
-#             popularity = track_info['popularity']
-            
-#             numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
-#             numerical_features['popularity'] = popularity
-#             return numerical_features
-#     return [0]
-
-# # Create a Streamlit app
-# st.title('Audio Features Lookup')
-# st.write('Enter a song name and artist to get the audio features.')
-
-# # Get user input
-# song_name = st.text_input('Song Name')
-# artist = st.text_input('Artist')
-
-# if song_name and artist:
-#     # Get audio features
-#     audio_feats = []
-#     audio_feats = get_audio_features(song_name, artist)
-
-#     if audio_feats:
-#         st.write('Audio Features:')
-#         audio_table = pd.DataFrame.from_dict(audio_feats, orient='index', columns=['Value'])
-#         st.table(audio_table)
-#     else:
-#         st.write('No audio features found for the given song and artist.')
-
 def get_audio_features(song_name, artist):
     query = f"track:{song_name} artist:{artist}"
     results = sp.search(q=query, type='track', limit=1)
@@ -233,8 +166,8 @@ st.title('Audio Features Lookup')
 st.write('Enter a song name and artist to get the audio features.')
 
 # Get user input
-song_name = st.text_input('Song Name', 'Dynamite')
-artist = st.text_input('Artist', 'BTS')
+song_name = st.text_input('Song Name', 'Crazy in Love')
+artist = st.text_input('Artist', 'Beyonce')
 audio_feats = None
 if song_name and artist:
     # Get audio features
@@ -247,36 +180,6 @@ if song_name and artist:
         st.table(audio_table)
     else:
         st.write('No audio features found for the given song and artist.')
-
-# def knn(k, X, y, audio_feats):
-#     scaler = StandardScaler()
-#     X_scaled = scaler.fit_transform(X)
-
-#     knn = KNeighborsClassifier(n_neighbors=k)
-#     knn.fit(X_scaled, y)
-
-#     num_feat = pd.DataFrame.from_dict(audio_feats, orient='index').T
-#     num_feat = num_feat[COLS]
-
-#     new_input_scaled = scaler.transform(num_feat.values.reshape(1, -1))
-
-#     distances, indices = knn.kneighbors(new_input_scaled)
-    
-#     nearest_songs = playlist_df.iloc[indices[0]]
-
-#     print("Nearest Songs:")
-#     print(playlist_df['track_name'], playlist_df['artist_name'])
-#     return nearest_songs['genres'],  playlist_df['track_name'], playlist_df['artist_name']
-
-# st.title('KNN Recommender')
-# genres, track, artist = knn(5, X, y, audio_feats)
-
-# st.write('Genres:')
-# st.write(genres)
-# st.write('Tracks:')
-# st.write(track)
-# st.write('Artists:')
-# st.write(artist)
 
 
 def knn(k, X, y, audio_feats):
