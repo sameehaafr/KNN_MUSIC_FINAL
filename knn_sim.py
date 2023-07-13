@@ -69,10 +69,14 @@ def retrieve_spotify_data(playlist_uri_array):
     playlist_df = playlist_df.drop(['key', 'mode', 'liveness', 'type', 'id', 'uri', 'track_href', 'analysis_url', 'duration_ms', 'time_signature'], axis=1)
     return playlist_df
 
+playlist_df = retrieve_spotify_data(playlist_arr)
+
 def X_y_split(playlist_df):
     X = playlist_df[COLS]
     y = playlist_df['genres']
     return X,y
+
+X, y = X_y_split(playlist_df)
 
 def silhouette_graph(X):
     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
