@@ -67,16 +67,18 @@ def retrieve_spotify_data(playlist_uri_array):
                 data.append(audio_data)
     playlist_df = pd.DataFrame(data)
     playlist_df = playlist_df.drop(['key', 'mode', 'liveness', 'type', 'id', 'uri', 'track_href', 'analysis_url', 'duration_ms', 'time_signature'], axis=1)
+    playlist_df.to_csv('data/music_data.csv', index=False)
     return playlist_df
 
-playlist_df = retrieve_spotify_data(playlist_arr)
+#playlist_df = retrieve_spotify_data(playlist_arr)
+playlist_df = pd.read_csv('data/music_data.csv')
 
 def X_y_split(playlist_df):
     X = playlist_df[COLS]
     y = playlist_df['genres']
     return X,y
 
-X, y = X_y_split(playlist_df)
+#X, y = X_y_split(playlist_df)
 
 def silhouette_graph(X):
     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
@@ -155,24 +157,3 @@ def knn(k, X, y, audio_feats):
 #--------- Streamlit  ---------
 
 st.title("Spotify Playlist Recommender")
-#playlist_df.to_csv('data/music_data.csv', index=False)
-#st.dataframe(playlist_df)
-
-#playlist_df = pd.read_csv('data/music_data.csv')
-
-# X, y = X_y_split(playlist_df)
-
-# silhouette_graph = silhouette_graph(X)
-# playlist_df_new = kmeans(X)
-
-# tsne_graph = tsne_graph(X)
-
-# song_name = st.text_input("Enter Song Name")
-# artist = st.text_input("Enter Artist Name")
-# audio_feats = get_audio_features(song_name, artist)
-
-# st.text("Nearest Songs:")
-# st.text("Genres: ")
-# st.text("Track Name: ")
-# st.text("Artist Name: ")
-# st.text(knn(7, X, y, audio_feats))
