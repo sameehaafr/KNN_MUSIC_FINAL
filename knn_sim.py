@@ -226,7 +226,7 @@ def get_audio_features(song_name, artist):
             numerical_features = {key: value for key, value in track_features[0].items() if isinstance(value, (int, float))}
             numerical_features['popularity'] = popularity
             return numerical_features
-    return None
+    return {}
 
 # Create a Streamlit app
 st.title('Audio Features Lookup')
@@ -236,18 +236,18 @@ st.write('Enter a song name and artist to get the audio features.')
 song_name = st.text_input('Song Name')
 artist = st.text_input('Artist')
 
-audio_feats = None
-
 if song_name and artist:
     # Get audio features
     audio_feats = get_audio_features(song_name, artist)
 
-if audio_feats:
-    st.write('Audio Features:')
-    audio_table = pd.DataFrame.from_dict(audio_feats, orient='index', columns=['Value'])
-    st.table(audio_table)
+    if len(audio_feats) > 0:
+        st.write('Audio Features:')
+        audio_table = pd.DataFrame.from_dict(audio_feats, orient='index', columns=['Value'])
+        st.table(audio_table)
+    else:
+        st.write('No audio features found for the given song and artist.')
 else:
-    st.write('No audio features found for the given song and artist.')
+    st.write('Please enter a song name and artist.')
 
 def knn(k, X, y, audio_feats):
     scaler = StandardScaler()
