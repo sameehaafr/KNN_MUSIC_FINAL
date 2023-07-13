@@ -205,8 +205,8 @@ if song_name and artist:
 
     if audio_feats:
         st.write('Audio Features:')
-        for key, value in audio_feats.items():
-            st.write(f'{key}: {value}')
+        audio_table = pd.DataFrame.from_dict(audio_feats, orient='index', columns=['Value'])
+        st.table(audio_table)
     else:
         st.write('No audio features found for the given song and artist.')
 
