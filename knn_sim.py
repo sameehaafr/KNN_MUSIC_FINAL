@@ -81,6 +81,23 @@ def X_y_split(playlist_df):
 
 X, y = X_y_split(playlist_df)
 
+# def silhouette_graph(X):
+#     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
+#     silhouette_avg = []
+#     for num_clusters in range_n_clusters:
+#         kmeans = KMeans(n_clusters=num_clusters)
+#         kmeans.fit(X)
+#         cluster_labels = kmeans.labels_
+    
+#         silhouette_avg.append(silhouette_score(X, cluster_labels))
+
+#     fig = plt.plot(range_n_clusters, silhouette_avg, 'bx-')
+#     plt.xlabel('Values of K')
+#     plt.ylabel('Silhouette score')
+#     plt.title('Silhouette analysis For Optimal k')
+#     return st.pyplot(fig)
+
+# silhouette_graph(X)
 def silhouette_graph(X):
     range_n_clusters = [5, 10, 15, 20, 25, 30, 35, 40]
     silhouette_avg = []
@@ -91,13 +108,24 @@ def silhouette_graph(X):
     
         silhouette_avg.append(silhouette_score(X, cluster_labels))
 
-    fig = plt.plot(range_n_clusters, silhouette_avg, 'bx-')
-    plt.xlabel('Values of K')
-    plt.ylabel('Silhouette score')
-    plt.title('Silhouette analysis For Optimal k')
-    return st.pyplot(fig)
+    fig, ax = plt.subplots()
+    ax.plot(range_n_clusters, silhouette_avg, 'bx-')
+    ax.set_xlabel('Values of K')
+    ax.set_ylabel('Silhouette score')
+    ax.set_title('Silhouette analysis For Optimal k')
+    return fig
 
-silhouette_graph(X)
+# Assuming you have the data 'X' available
+
+# Create a Streamlit app
+st.title('Silhouette Analysis')
+st.write('This app calculates and displays the silhouette scores for different values of K in KMeans clustering.')
+
+# Generate the silhouette graph
+fig = silhouette_graph(X)
+
+# Display the plot using Streamlit
+st.pyplot(fig)
 
 
 def kmeans(X):
