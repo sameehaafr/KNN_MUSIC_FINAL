@@ -222,7 +222,7 @@ if song_name and artist:
     # Get audio features
     audio_feats = get_audio_features(song_name, artist)
 
-    if audio_feats:
+    if audio_feats is not None:
         st.write('Audio Features:')
         audio_table = pd.DataFrame.from_dict(audio_feats, orient='index', columns=['Value'])
         st.table(audio_table)
@@ -233,6 +233,7 @@ else:
 
 if audio_feats is None and (song_name or artist):
     st.write('No audio features found for the given song and artist.')
+
 
 def knn(k, X, y, audio_feats):
     scaler = StandardScaler()
