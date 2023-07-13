@@ -236,19 +236,18 @@ try:
     # Get user input
     song_name = st.text_input('Song Name')
     artist = st.text_input('Artist')
-    audio_feats = {}
+
     if song_name and artist:
         # Get audio features
+        audio_feats = []
         audio_feats = get_audio_features(song_name, artist)
 
-        if len(audio_feats) > 0:
+        if audio_feats:
             st.write('Audio Features:')
             audio_table = pd.DataFrame.from_dict(audio_feats, orient='index', columns=['Value'])
             st.table(audio_table)
         else:
             st.write('No audio features found for the given song and artist.')
-    else:
-        st.write('Please enter a song name and artist.')
 except:
   # Prevent the error from propagating into your Streamlit app.
   pass
