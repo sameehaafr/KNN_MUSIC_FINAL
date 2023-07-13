@@ -251,7 +251,6 @@ else:
 if audio_feats is None and (song_name or artist):
     st.write('No audio features found for the given song and artist.')
 
-
 def knn(k, X, y, audio_feats):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
