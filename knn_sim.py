@@ -168,11 +168,6 @@ if st.sidebar.button("LinkedIn"):
     open_link("https://www.linkedin.com/in/sameeha-afrulbasha/")
 if st.sidebar.button("Medium"):
     open_link("https://sameehaafr.medium.com/")
-    
-
-
-# Main content of the app
-st.write("This is the main content of the app.")
 
 
 st.title("Spotify Song Recommendation System Using KNN")
