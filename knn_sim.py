@@ -155,7 +155,7 @@ st.title("Spotify Song Recommendation System")
 st.caption("In this article, we will explore how to build a Spotify song recommendation system using machine learning techniques. By leveraging the Spotipy library and Spotify's Web API, we can retrieve audio features and genre information for songs from curated playlists. Through data analysis, clustering, and dimensionality reduction, we will uncover patterns in the music data. Finally, we will use the K-nearest neighbors algorithm to recommend songs based on a users song input.")
 
 st.header("Setting up the Environment")
-st.caption("To begin, we need to import the necessary libraries and set up the [link](https://developer.spotify.com/) Spotify client credentials. We import Spotipy for interacting with the Spotify API, as well as other libraries such as pandas, streamlit, plotly, and scikit-learn for data processing and visualization. We also define the client ID and client secret provided by Spotify.")
+st.caption("To begin, we need to import the necessary libraries and set up the [Spotify](https://developer.spotify.com/) client credentials. We import Spotipy for interacting with the Spotify API, as well as other libraries such as pandas, streamlit, plotly, and scikit-learn for data processing and visualization. We also define the client ID and client secret provided by Spotify.")
 
 # --------- READING DATA --------- #
 st.header('Retrieving Spotify Data')
@@ -219,6 +219,6 @@ st.caption("By following this code and understanding the described steps, one ca
 # -------------ABOUT ME------------ #
 st.header("Shameless Self-Promotion")
 st.caption("If you liked this project, checkout my other projects and some of my other media accounts below!")
-st.caption("[link](https://sameehaafr.github.io/sameehaafr/) Website \n\n\n [link](https://github.com/sameehaafr) GitHub \n\n\n [link](https://www.linkedin.com/in/sameeha-afrulbasha/)LinkedIn \n\n\n [link](https://sameehaafr.medium.com/) Medium")
+st.caption("[Website](https://sameehaafr.github.io/sameehaafr/) \n\n\n [GitHub](https://github.com/sameehaafr) \n\n\n [LinkedIn](https://www.linkedin.com/in/sameeha-afrulbasha/) \n\n\n [Medium](https://sameehaafr.medium.com/)")
 
 st.write("Thanks for reading! :)") 
