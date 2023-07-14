@@ -154,27 +154,6 @@ def knn(k, X, y, audio_feats):
 #--------- STREAMLIT APP  ---------#
 # Create a sidebar
 st.sidebar.title("About Me")
-# Add circular image
-st.sidebar.markdown(
-    """
-    <style>
-    .image {}
-        width: 50px;
-        height: 50px;
-    }
-    </style>
-    """
-    , unsafe_allow_html=True
-)
-
-st.sidebar.markdown(
-    """
-    <div class="image">
-        <img src="https://sameehaafr.github.io/sameehaafr/assets/profile4.jpg" alt="img">
-    </div>
-    """
-    , unsafe_allow_html=True
-)
 st.sidebar.write("I'm Sameeha Afrulbasha! I'm an undergraduate student studying Data Science, Statistics, and Math at Purdue University. Feel free to checkout my website and other media accounts below!")
 
 def open_link(url):
