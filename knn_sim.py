@@ -154,7 +154,8 @@ def knn(k, X, y, audio_feats):
 #--------- STREAMLIT APP  ---------#
 st.title("Spotify Song Recommendation System Using KNN")
 st.caption("In this article, we will explore how to build a Spotify song recommendation system using machine learning techniques. By leveraging the Spotipy library and Spotify's Web API, we can retrieve audio features and genre information for songs from curated playlists. Through data analysis, clustering, and dimensionality reduction, we will uncover patterns in the music data.")
-st.write("Category: Unsupervised Machine Learning (K-Means and KNN)")
+#st.write("Category: Unsupervised Machine Learning (K-Means and KNN)")
+st.markdown("<span style='background-color: yellow;'>Category:</span> Unsupervised Machine Learning (K-Means and KNN)", unsafe_allow_html=True)
 st.write("Objective: Cluster data using K-means and build a KNN algorithm to recommend songs based on a users song input.")
 
 st.header("Setting up the Environment")
