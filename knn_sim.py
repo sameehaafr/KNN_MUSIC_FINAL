@@ -157,7 +157,6 @@ st.sidebar.title("About Me")
 st.sidebar.write("I'm Sameeha Afrulbasha! I'm an undergraduate student studying Data Science, Statistics, and Math at Purdue University. Feel free to checkout my website and other media accounts below!")
 
 def open_link(url):
-    # Open the provided URL in a new tab
     js_code = f"window.open('{url}')"
     st.write(f"<script>{js_code}</script>", unsafe_allow_html=True)
 
