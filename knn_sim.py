@@ -154,13 +154,22 @@ def knn(k, X, y, audio_feats):
 #--------- STREAMLIT APP  ---------#
 # Create a sidebar
 st.sidebar.title("About Me")
-st.sidebar.write("Welcome to my app!")
 st.sidebar.write("I'm Sameeha Afrulbasha!")
-st.sidebar.write("Feel free to explore the app!")
-st.sidebar.write("Website: https://sameehaafr.github.io/sameehaafr/")
-st.sidebar.write("GitHub: https://github.com/sameehaafr")
-st.sidebar.write("LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/")
-st.sidebar.write("Medium: https://sameehaafr.medium.com/")
+
+def open_link(url):
+    # Open the provided URL in a new tab
+    js_code = f"window.open('{url}')"
+    st.write(f"<script>{js_code}</script>", unsafe_allow_html=True)
+
+if st.sidebar.button("My Website"):
+    open_link("https://sameehaafr.github.io/sameehaafr/")
+if st.sidebar.button("GitHub"):
+    open_link("https://github.com/sameehaafr")
+if st.sidebar.button("LinkedIn"):
+    open_link("https://www.linkedin.com/in/sameeha-afrulbasha/")
+if st.sidebar.button("Medium"):
+    open_link("https://sameehaafr.medium.com/")
+
 
 # Main content of the app
 st.write("This is the main content of the app.")
