@@ -152,6 +152,20 @@ def knn(k, X, y, audio_feats):
     return nearest_songs['genres'], nearest_songs['track_name'], nearest_songs['artist_name']
 
 #--------- STREAMLIT APP  ---------#
+# Create a sidebar
+st.sidebar.title("About Me")
+st.sidebar.write("Welcome to my app!")
+st.sidebar.write("I'm Sameeha Afrulbasha!")
+st.sidebar.write("Feel free to explore the app!")
+st.sidebar.write("Website: https://sameehaafr.github.io/sameehaafr/")
+st.sidebar.write("GitHub: https://github.com/sameehaafr")
+st.sidebar.write("LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/")
+st.sidebar.write("Medium: https://sameehaafr.medium.com/")
+
+# Main content of the app
+st.write("This is the main content of the app.")
+
+
 st.title("Spotify Song Recommendation System Using KNN")
 st.markdown("In this article, we will explore how to build a Spotify song recommendation system using machine learning techniques. By leveraging the Spotipy library and Spotify's Web API, we can retrieve audio features and genre information for songs from curated playlists. Through data analysis, clustering, and dimensionality reduction, we will uncover patterns in the music data.")
 #st.write("Category: Unsupervised Machine Learning (K-Means and KNN)")
