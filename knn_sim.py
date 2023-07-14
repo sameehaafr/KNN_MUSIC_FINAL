@@ -159,40 +159,40 @@ st.markdown("<b>Category:</b> Unsupervised Machine Learning (K-Means and KNN)", 
 st.markdown("<b>Objective:</b> Cluster data using K-means and build a KNN algorithm to recommend songs based on a users song input.", unsafe_allow_html=True)
 
 st.header("Setting up the Environment")
-st.caption("To begin, we need to import the necessary libraries and set up the [Spotify](https://developer.spotify.com/) client credentials. We import Spotipy for interacting with the Spotify API, as well as other libraries such as pandas, streamlit, plotly, and scikit-learn for data processing and visualization. We also define the client ID and client secret provided by Spotify.")
+st.markdown("To begin, we need to import the necessary libraries and set up the [Spotify](https://developer.spotify.com/) client credentials. We import Spotipy for interacting with the Spotify API, as well as other libraries such as pandas, streamlit, plotly, and scikit-learn for data processing and visualization. We also define the client ID and client secret provided by Spotify.")
 
 # --------- READING DATA --------- #
 st.header('Retrieving Spotify Data')
-st.caption("The code retrieves data from Spotify playlists using the Spotify Web API and the Spotipy library. A function called retrieve_spotify_data is defined, which takes an array of playlist URIs as input. For each playlist, the code extracts track information, audio features, and genres. The data is stored in a pandas DataFrame and saved as a CSV file for further analysis. The bigger the dataset the better. However, for this simple application I decided to do a playlist for each genre: Pop, Hip-Hop, Country, Latin, Rock, EDM, Indie, R&B, Jazz, and Metal. I will be expanding this soon. Here is the retrieved dataset with less important features removed.")
+st.markdown("The code retrieves data from Spotify playlists using the Spotify Web API and the Spotipy library. A function called retrieve_spotify_data is defined, which takes an array of playlist URIs as input. For each playlist, the code extracts track information, audio features, and genres. The data is stored in a pandas DataFrame and saved as a CSV file for further analysis. The bigger the dataset the better. However, for this simple application I decided to do a playlist for each genre: Pop, Hip-Hop, Country, Latin, Rock, EDM, Indie, R&B, Jazz, and Metal. I will be expanding this soon. Here is the retrieved dataset with less important features removed.")
 playlist_df = pd.read_csv('data/music_data.csv')
 st.dataframe(playlist_df)
 
 # --------- DATA PROCESSING --------- #
 st.header('Data Processing and Feature Engineering')
-st.caption("Next, the code performs data processing and feature engineering tasks on the retrieved Spotify data. The DataFrame is split into input features (X) and the target variable (genres) (y) for classification purposes. Less important features are removed, while important features related to the essence of music, such as acousticness, danceability, energy, instrumentalness, loudness, speechiness, tempo, and valence, are retained. We will next be performing K-Means Clustering on the data to group similar songs together based on their audio features.")
+st.markdown("Next, the code performs data processing and feature engineering tasks on the retrieved Spotify data. The DataFrame is split into input features (X) and the target variable (genres) (y) for classification purposes. Less important features are removed, while important features related to the essence of music, such as acousticness, danceability, energy, instrumentalness, loudness, speechiness, tempo, and valence, are retained. We will next be performing K-Means Clustering on the data to group similar songs together based on their audio features.")
 X, y = X_y_split(playlist_df)
 
 # --------- SILHOUETTE ANALYSIS --------- #
 st.header('Silhouette Analysis')
-st.caption("The code includes a silhouette analysis to evaluate the quality of the clustering results. The silhouette score is calculated for different values of K (the number of clusters) in K-means clustering. The resulting plot displays the relationship between the number of clusters and the quality of the clustering. A higher silhouette score indicates better separation between clusters, aiding in the determination of the optimal number of clusters for K-means clustering. As the graph below shows, the optimal number of clusters is around 5-6.")
+st.markdown("The code includes a silhouette analysis to evaluate the quality of the clustering results. The silhouette score is calculated for different values of K (the number of clusters) in K-means clustering. The resulting plot displays the relationship between the number of clusters and the quality of the clustering. A higher silhouette score indicates better separation between clusters, aiding in the determination of the optimal number of clusters for K-means clustering. As the graph below shows, the optimal number of clusters is around 5-6.")
 fig = silhouette_graph(X)
 st.pyplot(fig)
 
 # --------- KMEANS CLUSTERING --------- #
 st.header('K-Means Clustering')
-st.caption("K-Means is a clustering algorithm used in unsupervised machine learning. It partitions a dataset into K distinct clusters where each data point belongs to the cluster with the nearest mean (centroid).")
-st.caption("In this section, K-means clustering is applied to the input features (audio features) using the optimized K value (5 or 6) from the silhouette analysis to group similar tracks together. The K-means algorithm assigns cluster labels to each data point based on their audio feature values. The resulting cluster labels are added as a new column to the DataFrame, enabling further analysis and visualization of the clustered data.")
+st.markdown("K-Means is a clustering algorithm used in unsupervised machine learning. It partitions a dataset into K distinct clusters where each data point belongs to the cluster with the nearest mean (centroid).")
+st.markdown("In this section, K-means clustering is applied to the input features (audio features) using the optimized K value (5 or 6) from the silhouette analysis to group similar tracks together. The K-means algorithm assigns cluster labels to each data point based on their audio feature values. The resulting cluster labels are added as a new column to the DataFrame, enabling further analysis and visualization of the clustered data.")
 playlist_df = kmeans(X)
 
 # --------- t-SNE VISUALIZATION --------- #
 st.header('t-SNE Visualization')
-st.caption("To visualize the clustered data, the code uses t-SNE (t-Distributed Stochastic Neighbor Embedding) for dimensionality reduction. t-SNE maps high-dimensional data to a lower-dimensional space while preserving local and global structure. The resulting 2D scatter plot displays the relationships between tracks, clusters, and genres, providing insights into the distribution and patterns within the data.")
+st.markdown("To visualize the clustered data, the code uses t-SNE (t-Distributed Stochastic Neighbor Embedding) for dimensionality reduction. t-SNE maps high-dimensional data to a lower-dimensional space while preserving local and global structure. The resulting 2D scatter plot displays the relationships between tracks, clusters, and genres, providing insights into the distribution and patterns within the data.")
 fig = tsne_graph(X, playlist_df)
 st.plotly_chart(fig)
 
 # --------- KNN RECOMMENDER --------- #
 st.header('KNN Recommender')
-st.caption("Now it is time to implement the K-nearest neighbors (KNN) recommender system. Users can input a song name and artist to receive personalized recommendations. The code retrieves the audio features for the input song using the Spotify API. If the audio features are found, they are displayed in a table, providing insights into the characteristics of the input song. The KNN algorithm utilizes the input audio features and the previously clustered data to find the nearest songs in terms of audio feature similarity. The recommended genres, tracks, and artists are displayed in a table, offering personalized recommendations based on user input.")
+st.markdown("Now it is time to implement the K-nearest neighbors (KNN) recommender system. Users can input a song name and artist to receive personalized recommendations. The code retrieves the audio features for the input song using the Spotify API. If the audio features are found, they are displayed in a table, providing insights into the characteristics of the input song. The KNN algorithm utilizes the input audio features and the previously clustered data to find the nearest songs in terms of audio feature similarity. The recommended genres, tracks, and artists are displayed in a table, offering personalized recommendations based on user input.")
 song_name = st.text_input('Song Name', 'Crazy in Love')
 artist = st.text_input('Artist', 'Beyonce')
 audio_feats = None
@@ -218,16 +218,16 @@ st.table(recommendations_table)
 # --------- CONCLUSION --------- #
 
 st.header('Conclusion')
-st.caption("By following this code and understanding the described steps, one can build a Spotify song recommendation system that utilizes audio features, clustering, and dimensionality reduction techniques to generate personalized song recommendations.")
+st.markdown("By following this code and understanding the described steps, one can build a Spotify song recommendation system that utilizes audio features, clustering, and dimensionality reduction techniques to generate personalized song recommendations.")
 
 # -------------ABOUT ME------------ #
 st.header("Shameless Self-Promotion")
-st.caption("If you liked this project, checkout my other projects and some of my other media accounts below!")
-st.caption("Website: https://sameehaafr.github.io/sameehaafr/")
-st.caption("GitHub: https://github.com/sameehaafr")
-st.caption("LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/")
-st.caption("Medium: https://sameehaafr.medium.com/")
+st.markdown("If you liked this project, checkout my other projects and some of my other media accounts below!")
+st.markdown("Website: https://sameehaafr.github.io/sameehaafr/")
+st.markdown("GitHub: https://github.com/sameehaafr")
+st.markdown("LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/")
+st.markdown("Medium: https://sameehaafr.medium.com/")
 
-#st.caption("[Website](https://sameehaafr.github.io/sameehaafr/) \n\n\n [GitHub](https://github.com/sameehaafr) \n\n\n [LinkedIn]() \n\n\n [Medium](https://sameehaafr.medium.com/)")
+#st.markdown("[Website](https://sameehaafr.github.io/sameehaafr/) \n\n\n [GitHub](https://github.com/sameehaafr) \n\n\n [LinkedIn]() \n\n\n [Medium](https://sameehaafr.medium.com/)")
 
 st.write("Thanks for reading! :)") 
