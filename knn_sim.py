@@ -158,9 +158,7 @@ st.sidebar.title("About Me")
 st.sidebar.markdown(
     """
     <style>
-    .circle-image {
-        border-radius: 1%;
-        overflow: hidden;
+    .image {}
         width: 150px;
         height: 150px;
     }
@@ -171,7 +169,7 @@ st.sidebar.markdown(
 
 st.sidebar.markdown(
     """
-    <div class="circle-image">
+    <div class="image">
         <img src="https://sameehaafr.github.io/sameehaafr/assets/profile4.jpg" alt="img">
     </div>
     """
