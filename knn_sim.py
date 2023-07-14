@@ -151,31 +151,32 @@ def knn(k, X, y, audio_feats):
 
 #--------- STREAMLIT APP  ---------#
 st.title("Spotify Song Recommendation System")
-st.caption("In this article, we will explore how to build a Spotify song recommendation system using machine learning techniques. By leveraging the Spotipy library and Spotify's Web API, we can retrieve audio features and genre information for songs from curated playlists. Through data analysis, clustering, and dimensionality reduction, we will uncover patterns in the music data. Finally, we will use the K-nearest neighbors algorithm to recommend songs based on user preferences.")
+st.caption("In this article, we will explore how to build a Spotify song recommendation system using machine learning techniques. By leveraging the Spotipy library and Spotify's Web API, we can retrieve audio features and genre information for songs from curated playlists. Through data analysis, clustering, and dimensionality reduction, we will uncover patterns in the music data. Finally, we will use the K-nearest neighbors algorithm to recommend songs based on a users song input.")
 
 st.header("Setting up the Environment")
-st.caption("To begin, we need to import the necessary libraries and set up the Spotify client credentials. We import Spotipy for interacting with the Spotify API, as well as other libraries such as pandas, streamlit, plotly, and scikit-learn for data processing and visualization. We also define the client ID and client secret provided by Spotify.")
+st.caption("To begin, we need to import the necessary libraries and set up the Spotify [link](https://developer.spotify.com/) client credentials. We import Spotipy for interacting with the Spotify API, as well as other libraries such as pandas, streamlit, plotly, and scikit-learn for data processing and visualization. We also define the client ID and client secret provided by Spotify.")
 
 # --------- READING DATA --------- #
 st.header('Retrieving Spotify Data')
-st.caption("The code retrieves data from Spotify playlists using the Spotify Web API and the Spotipy library. A function called retrieve_spotify_data is defined, which takes an array of playlist URIs as input. For each playlist, the code extracts track information, audio features, and genres. The data is stored in a pandas DataFrame and saved as a CSV file for further analysis.")
+st.caption("The code retrieves data from Spotify playlists using the Spotify Web API and the Spotipy library. A function called retrieve_spotify_data is defined, which takes an array of playlist URIs as input. For each playlist, the code extracts track information, audio features, and genres. The data is stored in a pandas DataFrame and saved as a CSV file for further analysis. The bigger the dataset the better. However, for this simple application I decided to do a playlist for each genre: Pop, Hip-Hop, Country, Latin, Rock, EDM, Indie, R&B, Jazz, and Metal. I will be expanding this soon. Here is the retrieved dataset with less important features removed.")
 playlist_df = pd.read_csv('data/music_data.csv')
 st.dataframe(playlist_df)
 
 # --------- DATA PROCESSING --------- #
 st.header('Data Processing and Feature Engineering')
-st.caption("Next, the code performs data processing and feature engineering tasks on the retrieved Spotify data. The DataFrame is split into input features (X) and the target variable (y) for classification purposes. Less important features are removed, while important features related to the essence of music, such as acousticness, danceability, energy, instrumentalness, loudness, speechiness, tempo, and valence, are retained.")
+st.caption("Next, the code performs data processing and feature engineering tasks on the retrieved Spotify data. The DataFrame is split into input features (X) and the target variable (genres) (y) for classification purposes. Less important features are removed, while important features related to the essence of music, such as acousticness, danceability, energy, instrumentalness, loudness, speechiness, tempo, and valence, are retained. We will next be performing K-Means Clustering on the data to group similar songs together based on their audio features.")
 X, y = X_y_split(playlist_df)
 
 # --------- SILHOUETTE ANALYSIS --------- #
 st.header('Silhouette Analysis')
-st.caption("The code includes a silhouette analysis to evaluate the quality of the clustering results. The silhouette score is calculated for different values of K (the number of clusters) in K-means clustering. The resulting plot displays the relationship between the number of clusters and the quality of the clustering. A higher silhouette score indicates better separation between clusters, aiding in the determination of the optimal number of clusters for K-means clustering.")
+st.caption("The code includes a silhouette analysis to evaluate the quality of the clustering results. The silhouette score is calculated for different values of K (the number of clusters) in K-means clustering. The resulting plot displays the relationship between the number of clusters and the quality of the clustering. A higher silhouette score indicates better separation between clusters, aiding in the determination of the optimal number of clusters for K-means clustering. As the graph below shows, the optimal number of clusters is around 5-6.")
 fig = silhouette_graph(X)
 st.pyplot(fig)
 
 # --------- KMEANS CLUSTERING --------- #
 st.header('K-Means Clustering')
-st.caption("In this section, K-means clustering is applied to the input features (audio features) to group similar tracks together. The K-means algorithm assigns cluster labels to each data point based on their audio feature values. The resulting cluster labels are added as a new column to the DataFrame, enabling further analysis and visualization of the clustered data.")
+st.caption("K-Means is a clustering algorithm used in unsupervised machine learning. It partitions a dataset into K distinct clusters where each data point belongs to the cluster with the nearest mean (centroid).")
+st.caption("In this section, K-means clustering is applied to the input features (audio features) using the optimized K value (5 or 6) from the silhouette analysis to group similar tracks together. The K-means algorithm assigns cluster labels to each data point based on their audio feature values. The resulting cluster labels are added as a new column to the DataFrame, enabling further analysis and visualization of the clustered data.")
 playlist_df = kmeans(X)
 
 # --------- t-SNE VISUALIZATION --------- #
@@ -186,7 +187,7 @@ st.plotly_chart(fig)
 
 # --------- KNN RECOMMENDER --------- #
 st.header('KNN Recommender')
-st.caption("The code implements a K-nearest neighbors (KNN) recommender system. Users can input a song name and artist to receive personalized recommendations. The code retrieves the audio features for the input song using the Spotify API. If the audio features are found, they are displayed in a table, providing insights into the characteristics of the input song. The KNN algorithm utilizes the input audio features and the previously clustered data to find the nearest songs in terms of audio feature similarity. The recommended songs' genres, track names, and artists are displayed in a table, offering personalized recommendations based on user input.")
+st.caption("Now it is time to implement the K-nearest neighbors (KNN) recommender system. Users can input a song name and artist to receive personalized recommendations. The code retrieves the audio features for the input song using the Spotify API. If the audio features are found, they are displayed in a table, providing insights into the characteristics of the input song. The KNN algorithm utilizes the input audio features and the previously clustered data to find the nearest songs in terms of audio feature similarity. The recommended genres, tracks, and artists are displayed in a table, offering personalized recommendations based on user input.")
 song_name = st.text_input('Song Name', 'Crazy in Love')
 artist = st.text_input('Artist', 'Beyonce')
 audio_feats = None
@@ -215,8 +216,8 @@ st.header('Conclusion')
 st.caption("By following this code and understanding the described steps, one can build a Spotify song recommendation system that utilizes audio features, clustering, and dimensionality reduction techniques to generate personalized song recommendations.")
 
 # -------------ABOUT ME------------ #
-st.markdown("#### Shameless Self-Promotion")
-st.write("If you liked this project, checkout my other projects and some of my other media accounts below!")
-st.write("Website: https://sameehaafr.github.io/sameehaafr/ \n\n\n GitHub: https://github.com/sameehaafr \n\n\n LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/ \n\n\n Medium: https://sameehaafr.medium.com/")
+st.header("Shameless Self-Promotion")
+st.caption("If you liked this project, checkout my other projects and some of my other media accounts below!")
+st.caption("Website: https://sameehaafr.github.io/sameehaafr/ \n\n\n GitHub: https://github.com/sameehaafr \n\n\n LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/ \n\n\n Medium: https://sameehaafr.medium.com/")
 
 st.write("Thanks for reading! :)")
