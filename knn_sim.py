@@ -243,14 +243,4 @@ st.table(recommendations_table)
 st.header('Conclusion')
 st.markdown("By following this code and understanding the described steps, one can build a Spotify song recommendation system that utilizes audio features, clustering, and dimensionality reduction techniques to generate personalized song recommendations.")
 
-# -------------ABOUT ME------------ #
-st.header("Shameless Self-Promotion")
-st.markdown("If you liked this project, checkout my other projects and some of my other media accounts below!")
-st.markdown("Website: https://sameehaafr.github.io/sameehaafr/")
-st.markdown("GitHub: https://github.com/sameehaafr")
-st.markdown("LinkedIn: https://www.linkedin.com/in/sameeha-afrulbasha/")
-st.markdown("Medium: https://sameehaafr.medium.com/")
-
-#st.markdown("[Website](https://sameehaafr.github.io/sameehaafr/) \n\n\n [GitHub](https://github.com/sameehaafr) \n\n\n [LinkedIn]() \n\n\n [Medium](https://sameehaafr.medium.com/)")
-
-st.write("Thanks for reading! :)") 
+st.markdown("Thanks for reading! :)") 
