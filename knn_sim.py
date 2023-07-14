@@ -159,8 +159,8 @@ st.sidebar.markdown(
     """
     <style>
     .image {}
-        width: 10px;
-        height: 10px;
+        width: 50px;
+        height: 50px;
     }
     </style>
     """
