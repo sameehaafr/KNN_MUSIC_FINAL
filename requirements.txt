@@ -118,7 +118,6 @@ validators==0.20.0
 virtualenv==20.23.0
 virtualenv-clone==0.5.7
 wcwidth==0.2.5
-webbrowser==0.5.1
 Werkzeug==2.0.3
 wrapt==1.14.0
 yellowbrick==1.5
