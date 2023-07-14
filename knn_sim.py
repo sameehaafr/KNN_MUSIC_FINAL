@@ -172,7 +172,7 @@ st.sidebar.markdown(
 st.sidebar.markdown(
     """
     <div class="circle-image">
-        <img src="IMG_9670_1_2_50.png" alt="img">
+        <img src="https://sameehaafr.github.io/sameehaafr/assets/profile4.jpg" alt="img">
     </div>
     """
     , unsafe_allow_html=True
