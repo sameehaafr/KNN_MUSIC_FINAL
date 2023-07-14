@@ -220,7 +220,7 @@ st.caption("By following this code and understanding the described steps, one ca
 # -------------ABOUT ME------------ #
 st.header("Shameless Self-Promotion")
 st.caption("If you liked this project, checkout my other projects and some of my other media accounts below!")
-st.button("Website", key="website", on_click="https://sameehaafr.github.io/sameehaafr/", use_container_width=True)
+st.button("Website", key="website", on_click=wb.open_new_tab("https://sameehaafr.github.io/sameehaafr/"), use_container_width=True)
 st.button("GitHub", key="github", on_click=lambda: wb.open_new_tab("https://github.com/sameehaafr"), use_container_width=True)
 st.button("LinkedIn", key="linkedin", on_click=lambda: wb.open_new_tab("https://www.linkedin.com/in/sameeha-afrulbasha/"), use_container_width=True)
 st.button("Medium", key="medium", on_click=lambda: wb.open_new_tab("https://sameehaafr.medium.com/"), use_container_width=True)
