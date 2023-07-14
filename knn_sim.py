@@ -154,7 +154,7 @@ def knn(k, X, y, audio_feats):
 #--------- STREAMLIT APP  ---------#
 # Create a sidebar
 st.sidebar.title("About Me")
-st.sidebar.write("I'm Sameeha Afrulbasha!")
+st.sidebar.write("I'm Sameeha Afrulbasha! I'm an undergraduate student studying Data Science, Statistics, and Math at Purdue University. Feel free to checkout my website and other media accounts below!")
 
 def open_link(url):
     # Open the provided URL in a new tab
