@@ -154,6 +154,29 @@ def knn(k, X, y, audio_feats):
 #--------- STREAMLIT APP  ---------#
 # Create a sidebar
 st.sidebar.title("About Me")
+# Add circular image
+st.sidebar.markdown(
+    """
+    <style>
+    .circle-image {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 150px;
+        height: 150px;
+    }
+    </style>
+    """
+    , unsafe_allow_html=True
+)
+
+st.sidebar.markdown(
+    """
+    <div class="circle-image">
+        <img src="/Users/sameehaafr/Code/KNN_MUSIC_FINAL/IMG_9670_1_2_50.png" alt="Your Image">
+    </div>
+    """
+    , unsafe_allow_html=True
+)
 st.sidebar.write("I'm Sameeha Afrulbasha! I'm an undergraduate student studying Data Science, Statistics, and Math at Purdue University. Feel free to checkout my website and other media accounts below!")
 
 def open_link(url):
@@ -168,6 +191,7 @@ if st.sidebar.button("LinkedIn"):
     open_link("https://www.linkedin.com/in/sameeha-afrulbasha/")
 if st.sidebar.button("Medium"):
     open_link("https://sameehaafr.medium.com/")
+    
 
 
 # Main content of the app
