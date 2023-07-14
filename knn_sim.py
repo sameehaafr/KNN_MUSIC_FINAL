@@ -172,7 +172,7 @@ st.sidebar.markdown(
 st.sidebar.markdown(
     """
     <div class="circle-image">
-        <img src="/Users/sameehaafr/Code/KNN_MUSIC_FINAL/IMG_9670_1_2_50.png" alt="Your Image">
+        <img src="IMG_9670_1_2_50.png" alt="img">
     </div>
     """
     , unsafe_allow_html=True
