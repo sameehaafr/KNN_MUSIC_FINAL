@@ -159,7 +159,7 @@ st.sidebar.markdown(
     """
     <style>
     .circle-image {
-        border-radius: 50%;
+        border-radius: 1%;
         overflow: hidden;
         width: 150px;
         height: 150px;
