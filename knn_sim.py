@@ -3,10 +3,8 @@
 import spotipy
 import warnings
 import pandas as pd
-import webbrowser as wb
 import streamlit as st
 import plotly.express as px 
-from PIL import Image
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
@@ -155,8 +153,6 @@ def knn(k, X, y, audio_feats):
 #--------- STREAMLIT APP  ---------#
 # Create a sidebar
 st.sidebar.title("About Me")
-#image = Image.open('IMG_9670_1_6.png')
-#st.sidebar.image(imagse)
 st.sidebar.write("I'm Sameeha Afrulbasha! I'm an undergraduate student studying Data Science, Statistics, and Math at Purdue University. Feel free to checkout my website and other media accounts below!")
 
 st.sidebar.markdown('Website: \n\n\n https://sameehaafr.github.io/sameehaafr/')
